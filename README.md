@@ -7,7 +7,7 @@ This project’s main goal is to test and run the [NeuroDesk](https://neurodesk.
 
 In order to compile ANTs natively on ARM, create a new ARM Ampere instance.
 
-[Source:](https://github.com/ANTsX/ANTs/wiki/Compiling-ANTs-on-Linux-and-Mac-OS)
+[Source](https://github.com/ANTsX/ANTs/wiki/Compiling-ANTs-on-Linux-and-Mac-OS)
 
 ```bash
 workingDir=${PWD}
