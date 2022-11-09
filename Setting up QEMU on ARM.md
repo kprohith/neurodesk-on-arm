@@ -1,6 +1,7 @@
 # Setting up QEMU on ARM
 ## Create a 4 core 24 GB ARM Ampere A1 instance
 
+```bash
 sudo apt-get update
 sudo apt install qemu-utils genisoimage qemu
 
@@ -14,7 +15,9 @@ sudo qemu-img create -f qcow2 -F qcow2 -o backing_file=ubuntu-16.04.qcow2 instan
 
 sudo qemu-img info instance-1.qcow2
 sudo qemu-img resize instance-1.qcow2 5G
+```
 
+```bash
 ssh-keygen
 export PUB_KEY=$(cat ~/.ssh/id_rsa.pub)
 
@@ -35,7 +38,9 @@ runcmd:
   - echo "AllowUsers ubuntu" >> /etc/ssh/sshd_config
   - restart ssh
 EOF
+```
 
+```bash
 sudo genisoimage  -output instance-1-cidata.iso -volid cidata -joliet -rock user-data meta-data
 
 sudo qemu-system-x86_64  \
@@ -45,13 +50,16 @@ sudo qemu-system-x86_64  \
   -netdev user,id=net0,hostfwd=tcp::2222-:22 \
   -drive if=virtio,format=qcow2,file=instance-1.qcow2 \
   -drive if=virtio,file=instance-1-cidata.iso
+```
 
   ## Open another terminal
-  ssh -o "StrictHostKeyChecking no" -p 2222 ubuntu@0.0.0.0
-
+```bash
+ssh -o "StrictHostKeyChecking no" -p 2222 ubuntu@0.0.0.0
+```
 
 # For Ubuntu 22.04
 
+```bash
 wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
 
 sudo mv jammy-server-cloudimg-amd64.img ubuntu-22.04.qcow2
@@ -60,7 +68,9 @@ sudo qemu-img create -f qcow2 -F qcow2 -o backing_file=ubuntu-22.04.qcow2 instan
 
 sudo qemu-img info instance-2.qcow2
 sudo qemu-img resize instance-2.qcow2 80G
+```
 
+```bash
 ssh-keygen
 export PUB_KEY=$(cat ~/.ssh/id_rsa.pub)
 
@@ -91,6 +101,9 @@ sudo qemu-system-x86_64  \
   -netdev user,id=net0,hostfwd=tcp::2222-:22 \
   -drive if=virtio,format=qcow2,file=instance-2.qcow2 \
   -drive if=virtio,file=instance-2-cidata.iso
+```
 
+```bash
 ## Open another terminal
 ssh -o "StrictHostKeyChecking no" -p 2222 ubuntu@0.0.0.0
+```
